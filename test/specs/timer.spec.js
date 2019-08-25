@@ -2,15 +2,18 @@ const Timer = require('../../src/pomodoro/timer');
 
 describe('Timer', () => {
     let $item = null;
+    let timer = null;
+
     beforeEach(() => {
         $item = document.createElement('warsawjs-minus');
+        timer = new Timer();
     });
     describe('decreaseElementNumber', () => {
         it('should reduce value', () => {
             // Arrange
             $item.textContent = '14';
             // Act
-            Timer.decreaseElementNumber($item);
+            timer.decreaseElementNumber($item);
             // Assert
             expect($item.textContent).toEqual('13');
             // Teardown
@@ -20,7 +23,7 @@ describe('Timer', () => {
             // Arrange
             $item.textContent = '0';
             // Act
-            Timer.decreaseElementNumber($item);
+            timer.decreaseElementNumber($item);
             // Assert
             expect($item.textContent).toEqual('0');
             // Teardown
@@ -29,10 +32,16 @@ describe('Timer', () => {
             // Arrange
             $item.textContent = '-1';
             // Act
-            Timer.decreaseElementNumber($item);
+            timer.decreaseElementNumber($item);
             // Assert
             expect($item.textContent).toEqual('0');
             // Teardown
+        });
+        it('should raise exception if HTMLElement does not have number as value', () => {
+            $item.textContent = 'warsawjs';
+            expect(() => {
+                timer.decreaseElementNumber($item);
+            }).toThrow();
         });
     });
     describe('increaseElementNumber', () => {
@@ -40,7 +49,7 @@ describe('Timer', () => {
             // Arrange
             $item.textContent = '14';
             // Act
-            Timer.increaseElementNumber($item);
+            timer.increaseElementNumber($item);
             // Assert
             expect($item.textContent).toEqual('15');
             // Teardown
@@ -49,10 +58,23 @@ describe('Timer', () => {
             // Arrange
             $item.textContent = '100';
             // Act
-            Timer.increaseElementNumber($item);
+            timer.increaseElementNumber($item);
             // Assert
             expect($item.textContent).toEqual('60');
             // Teardown
+        });
+        it('should raise exception if HTMLElement does not have number as value', () => {
+            $item.textContent = 'warsawjs';
+            expect(() => {
+                timer.increaseElementNumber($item);
+            }).toThrow();
+        });
+    });
+    describe('startTimer', () => {
+        it('should call timer counter', () => {
+            jest.spyOn(timer, 'timeCounter');
+            timer.startTimer();
+            expect(timer.timeCounter()).toHaveBeenCalled();
         });
     });
 });
