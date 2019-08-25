@@ -72,9 +72,26 @@ describe('Timer', () => {
     });
     describe('startTimer', () => {
         it('should call timer counter', () => {
+            // Arrange
+            const $break = document.createElement('breakTime');
+            $break.textContent = '1';
+            const $session = document.createElement('sessionTime');
+            $session.textContent = '1';
+
+            // mock timeCounter
+            timer.timeCounter = jest.fn();
             jest.spyOn(timer, 'timeCounter');
-            timer.startTimer();
-            expect(timer.timeCounter()).toHaveBeenCalled();
+
+            // Act
+            timer.startTimer($break, $session);
+
+            // Assert
+            expect(timer.timeCounter).toHaveBeenCalled();
+            expect(timer.timeCounter).toHaveBeenCalledTimes(1);
+            expect(timer.timeCounter).toHaveBeenCalledWith(
+                Timer.ONE_MINUTE_IN_MILLISECONDS,
+                Timer.ONE_MINUTE_IN_MILLISECONDS
+            );
         });
     });
 });
