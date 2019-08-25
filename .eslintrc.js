@@ -1,7 +1,7 @@
 module.exports = {
     "extends": "piecioshka",
     "env": {
-        // "browser": true,
+        "browser": true,
         "commonjs": true,
         "es6": true,
         "node": true,
