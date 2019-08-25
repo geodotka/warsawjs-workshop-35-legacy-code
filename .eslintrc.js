@@ -16,6 +16,7 @@ module.exports = {
         // "sourceType": 'module'
     },
     "rules": {
+        "no-console": "off",
         "no-inline-comments": "off",
         "require-jsdoc": "off",
         "no-implicit-globals": "off",
