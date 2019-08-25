@@ -8,6 +8,7 @@ module.exports = {
         "jest": true
     },
     "globals": {
+        "Timer": true,
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
