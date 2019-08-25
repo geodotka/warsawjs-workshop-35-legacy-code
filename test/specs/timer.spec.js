@@ -6,6 +6,11 @@ describe('Timer', () => {
 
     beforeEach(() => {
         $item = document.createElement('warsawjs-minus');
+
+        const $resetButton = document.createElement('div');
+        $resetButton.id = 'resetBttn';
+        document.body.append($resetButton);
+
         timer = new Timer();
     });
     describe('decreaseElementNumber', () => {
@@ -78,17 +83,17 @@ describe('Timer', () => {
             const $session = document.createElement('sessionTime');
             $session.textContent = '1';
 
-            // mock timeCounter
-            timer.timeCounter = jest.fn();
-            jest.spyOn(timer, 'timeCounter');
+            // mock _startCounter
+            timer._startCounter = jest.fn();
+            jest.spyOn(timer, '_startCounter');
 
             // Act
             timer.startTimer($break, $session);
 
             // Assert
-            expect(timer.timeCounter).toHaveBeenCalled();
-            expect(timer.timeCounter).toHaveBeenCalledTimes(1);
-            expect(timer.timeCounter).toHaveBeenCalledWith(
+            expect(timer._startCounter).toHaveBeenCalled();
+            expect(timer._startCounter).toHaveBeenCalledTimes(1);
+            expect(timer._startCounter).toHaveBeenCalledWith(
                 Timer.ONE_MINUTE_IN_MILLISECONDS,
                 Timer.ONE_MINUTE_IN_MILLISECONDS
             );
